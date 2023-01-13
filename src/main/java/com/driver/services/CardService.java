@@ -12,15 +12,17 @@ public class CardService {
 
 
     @Autowired
-    CardRepository cardRepository3;
+    CardRepository cardRepository;
 
     public Card createAndReturn(Student student){
-        Card card = null;
+        Card card = new Card();
         //link student with a new card
+        card.setCardStatus(CardStatus.ACTIVATED);
+        card.setStudent(student);
         return card;
     }
 
     public void deactivateCard(int student_id){
-        cardRepository3.deactivateCard(student_id, CardStatus.DEACTIVATED.toString());
+        cardRepository.deactivateCard(student_id, CardStatus.DEACTIVATED.toString());
     }
 }

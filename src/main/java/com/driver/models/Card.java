@@ -1,6 +1,10 @@
 package com.driver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,13 +13,17 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(mappedBy = "card", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn   // join this column to the primary key of Card table
     @JsonIgnoreProperties("card")
     private Student student;
 
@@ -32,7 +40,5 @@ public class Card {
     @JsonIgnoreProperties("card")
     private List<Book> books;
 
-    public Card(){
-        this.cardStatus = CardStatus.ACTIVATED;
-    }
+
 }
